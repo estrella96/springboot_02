@@ -82,4 +82,44 @@
 
 ```
     
+# Conditional派生注解  
+- @Conditional 指定的条件成立 才给容器中添加组件 配置里面的内容才生效
+- 派生
+    - @ConditionalOnJava 系统java版本是否符合要求
+    - @ConditionalOnBean 容器中是否存在指定bean
+    - @ConditionalOnMissingBean 是否不存在bean
+    - @ConditionalOnExpression 满足SpEL表达式绑定
+    - @ConditionalOnClass 系统中有指定的类
+    - @ConditionalOnMissingClass 没有指定的类
+    - @ConditionalOnSingleCandidate 容器中只有一个指定的bean 或者这个是首选bean
+    - @ConditionalOnProperty 系统中指定的属性是否有指定的值
+    - @ConditionalOnResource 类路径下是否存在指定资源文件
+- 怎么确定哪些自动配置类生效
+    - 开启debug模式 打印自动配置报告
+      debug=true
+    ============================
+    CONDITIONS EVALUATION REPORT
+    ============================
     
+    
+    Positive matches:（启用的自动配置类）
+    -----------------
+    
+       CodecsAutoConfiguration matched:
+          - @ConditionalOnClass found required class 'org.springframework.http.codec.CodecConfigurer' (OnClassCondition)
+    
+       CodecsAutoConfiguration.JacksonCodecConfiguration matched:
+          - @ConditionalOnClass found required class 'com.fasterxml.jackson.databind.ObjectMapper' (OnClassCondition)
+    
+    Negative matches:（没有启用的）
+    -----------------
+    
+       ActiveMQAutoConfiguration:
+          Did not match:
+             - @ConditionalOnClass did not find required class 'javax.jms.ConnectionFactory' (OnClassCondition)
+    
+       AopAutoConfiguration:
+          Did not match:
+             - @ConditionalOnClass did not find required class 'org.aspectj.lang.annotation.Aspect' (OnClassCondition)
+    
+
